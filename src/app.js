@@ -1,9 +1,11 @@
 const express = require('express');
 const pasienRouter = require('../src/routes/pasienRouter');
+const pasienRouterAuth = require('../src/routes/authRouter');
 const app = express();
 const PORT = 4000;
 const log = require("./middleware/log");
 const { notFoundHandler, errorHandler } = require('./middleware/errorHandler');
+require("dotenv").config();
 
 app.use(express.json());
 app.use(log);
@@ -19,6 +21,7 @@ app.post('/tambah_pasien', (req, res) => {
 });
 
 app.use('/pasien', pasienRouter);
+app.use('/auth', pasienRouterAuth);
 
 app.listen(PORT, () => {
     console.log(`App port http://localhost:${PORT}`);

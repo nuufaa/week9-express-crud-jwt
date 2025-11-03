@@ -3,14 +3,16 @@ const router = express.Router();
 const pasienController = require('../controllers/pasienController');
 const validatePasien = require("../middleware/pasienValidate");
 
-router.get('/', pasienController.getAllPasien);
+const authenticateToken = require("../middleware/authMiddleware");
 
-router.get('/:id', pasienController.getPasienById);
+router.get('/', authenticateToken, pasienController.getAllPasien);
 
-router.post('/', validatePasien, pasienController.addPasien);
+router.get('/:id', authenticateToken, pasienController.getPasienById);
 
-router.put('/:id', validatePasien, pasienController.updatePasien);
+router.post('/', authenticateToken, validatePasien, pasienController.addPasien);
 
-router.delete('/:id', pasienController.deletePasien);
+router.put('/:id', authenticateToken, validatePasien, pasienController.updatePasien);
+
+router.delete('/:id', authenticateToken, pasienController.deletePasien);
 
 module.exports = router;
