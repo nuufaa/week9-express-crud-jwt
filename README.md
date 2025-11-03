@@ -43,7 +43,7 @@ DB_NAME = week6-express-db
 JWT_SECRET=default_secret
 ```
 
-6. Buat database MySQL dengan script pada seed.sql:
+6. Buat database MySQL dengan script pada week6-express-db.sql:
 ```
 ```CREATE DATABASE week6-express-crud;
 USE week6-express-crud;
@@ -65,8 +65,8 @@ CREATE TABLE users (
 ## Database
 Tabel: users
 - id INT AUTO_INCREMENT PRIMARY KEY
-- username VARCHAR(50)
-- password VARCHAR(50)
+- username VARCHAR(110)
+- password VARCHAR(255)
 
 ## Penjelasan Bagian-Bagian Utama
 Berikut adalah penjelasan singkat untuk setiap file berdasarkan struktur proyek:
@@ -92,20 +92,24 @@ File utama server yang mengatur middleware global, menghubungkan semua route, se
 
 1. Register User
 Endpoint: POST http://localhost:4000/auth/register
+
 Screenshot:
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/1765c186-af4e-4b92-b8c6-06ef3edcae5b" />
 
 
 2. Login User
 Endpoint: POST http://localhost:4000/auth/login
+
 Screenshot:
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/b426e39a-f6a3-4721-8f01-735435fc6fc0" />
 
 
 3. Akses Profil 
 Endpoint: GET http://localhost:4000/pasien
+
 Screenshot jika tidak memasukkan token:
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/c945a3d1-a62a-4be7-bbd9-517f1831ef71" />
+
 
 Screenshot jika memasukkan token:
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/85a4ce23-d467-4f66-b2b3-ebd2b453e685" />
