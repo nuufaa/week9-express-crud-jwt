@@ -32,36 +32,15 @@ npm init -y
 npm install jsonwebtoken bcrypt
 ```
 
-4. Buat struktur folder:
-```
-express-auth-jwt/
-│
-├── src/
-│   ├── config/
-│   │   └── db.js
-│   ├── controllers/
-│   │   └── authController.js
-│   ├── middleware/
-│   │   └── authMiddleware.js
-│   ├── routes/
-│   │   ├── authRoutes.js
-│   │   └── protectedRoutes.js
-│   └── app.js
-│
-├── .env
-├── package.json
-├── seed.sql
-└── screenshot/
-```
-
 5. Buat file .env berisi konfigurasi database dan secret key JWT:
 ```
-PORT=5000
-DB_HOST=localhost
-DB_USER=root
-DB_PASSWORD=
-DB_NAME=auth_jwt_db
-JWT_SECRET=rahasia_superku
+PORT = 4000
+DB_HOST = localhost
+DB_USER = root
+DB_PASSWORD =
+DB_NAME = week6-express-db
+
+JWT_SECRET=default_secret
 ```
 
 6. Buat database MySQL dengan script pada seed.sql:
@@ -71,24 +50,23 @@ USE week6-express-crud;
 
 CREATE TABLE users (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  username VARCHAR(50) UNIQUE NOT NULL,
-  password VARCHAR(50) NOT NULL,
+  username VARCHAR(110) UNIQUE NOT NULL,
+  password VARCHAR(255) NOT NULL,
 );
 ```
 
 7. Implementasikan koneksi database pada file src/config/db.js menggunakan mysql2 dan dotenv.
 8. Buat controller authController.js untuk menangani register dan login user.
 9. Tambahkan middleware authMiddleware.js untuk memverifikasi token JWT.
-10. Buat route authRoutes.js untuk endpoint register & login, serta protectedRoutes.js untuk route profil yang dilindungi.
+10. Buat route authRoutes.js untuk endpoint register & login.
 11. Jalankan server menggunakan perintah:
 ```npm run dev```
 
 ## Database
 Tabel: users
 - id INT AUTO_INCREMENT PRIMARY KEY
-- username VARCHAR(100)
-- password VARCHAR(255)
-- fullname VARCHAR(100)
+- username VARCHAR(50)
+- password VARCHAR(50)
 
 ## Penjelasan Bagian-Bagian Utama
 Berikut adalah penjelasan singkat untuk setiap file berdasarkan struktur proyek:
@@ -104,28 +82,34 @@ Memeriksa apakah request memiliki header Authorization dengan token JWT yang val
 
 4. src/routes/authRoutes.js
 Menyediakan endpoint:
-    a. POST /api/auth/register --> Registrasi user baru
-    b. POST /api/auth/login --> Login user
+    a. POST /auth/register --> Registrasi user baru
+    b. POST /auth/login --> Login user
 
-5. src/routes/protectedRoutes.js
-Endpoint GET /api/protected/profile → hanya dapat diakses jika memiliki token valid.
-
-6. src/app.js
+5. src/app.js
 File utama server yang mengatur middleware global, menghubungkan semua route, serta menjalankan server pada port yang ditentukan.
 
 ## Hasil Uji API dengan Postman
 
 1. Register User
-Endpoint: POST http://localhost:5000/api/auth/register
+Endpoint: POST http://localhost:4000/auth/register
 Screenshot:
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/1765c186-af4e-4b92-b8c6-06ef3edcae5b" />
+
 
 2. Login User
-Endpoint: POST http://localhost:5000/api/auth/login
+Endpoint: POST http://localhost:4000/auth/login
 Screenshot:
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/b426e39a-f6a3-4721-8f01-735435fc6fc0" />
 
-3. Akses Profil (Protected Route)
-Endpoint: GET http://localhost:5000/api/protected/profile
-Screenshot:
+
+3. Akses Profil 
+Endpoint: GET http://localhost:4000/pasien
+Screenshot jika tidak memasukkan token:
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/c945a3d1-a62a-4be7-bbd9-517f1831ef71" />
+
+Screenshot jika memasukkan token:
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/85a4ce23-d467-4f66-b2b3-ebd2b453e685" />
+
 
 ## Kesimpulan
 Program ini sudah berhasil menerapkan sistem autentikasi JWT (JSON Web Token) menggunakan Node.js, Express, dan MySQL. User bisa melakukan registrasi, login, serta mengakses route yang dilindungi dengan token yang valid. Fitur hashing password dengan bcrypt dan penggunaan dotenv untuk menyimpan konfigurasi rahasia memastikan sistem lebih aman.
